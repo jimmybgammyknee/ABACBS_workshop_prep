@@ -14,27 +14,27 @@
     - Create keypair for Login or add your own ssh key
     - Turn on ssh security group
     - Spin up and ssh in
-- Installation of docker and singularity
-    - Linux (ubuntu) on the Nectar Cloud
+    - Installation of docker and singularity
+        - Linux (ubuntu) on the Nectar Cloud
 
-    # Install build stuff
-    sudo apt-get update && sudo apt-get install git python dh-autoreconf build-essential libarchive-dev
+        # Install build stuff
+        sudo apt-get update && sudo apt-get install git python dh-autoreconf build-essential libarchive-dev
 
-    # Install Docker
-    wget -qO- https://get.docker.com/ | sh
-    sudo adduser jimmy
-    sudo usermod -aG docker jimmy
-    sudo usermod -aG docker ubuntu
+        # Install Docker
+        wget -qO- https://get.docker.com/ | sh
+        sudo usermod -aG docker ubuntu
+        newgrp docker
 
-    # Install singularity (for later)
-    # Install
-    VER=2.5.2
-    wget https://github.com/singularityware/singularity/releases/download/$VER/singularity-$VER.tar.gz
-    tar xvf singularity-$VER.tar.gz
-    cd singularity-$VER
-    ./configure --prefix=/usr/local --sysconfdir=/etc
-    make
-    sudo make install
+        # Install singularity (for later)
+        # Install
+        VER=2.5.2
+        wget https://github.com/singularityware/singularity/releases/download/$VER/singularity-$VER.tar.gz
+        tar xvf singularity-$VER.tar.gz
+        cd singularity-$VER
+        ./configure --prefix=/usr/local --sysconfdir=/etc
+        make
+        sudo make install
+
 
 9:30am: Introduction to Docker (Jimmy)
 - Short history of Containerisation
@@ -53,7 +53,11 @@
 - Explain `dockerhub` and show pulling an image
     - Define the simplified pipeline that we have put on a docker image (on dockerhub)
     - Explaining commands - cheatsheet
+        -
+        - removing docker image: `docker rmi -f 0e044e35f8fb`
 - Running a pipeline from a
+- Running rstudio in a docker container
+    - docker run --rm -p 8787:8787 rocker/verse
 
 10:30am - Break
 
