@@ -10,8 +10,40 @@ University of Sydney
 Docker containers can also be used to run specific applications that are completely separate from your local environment, and because of this, they can be invaluable in  This can be used for user testing or for creating specialised environments that serve specific purposes. For example, if I need to run something on a package that was designed for an earlier version of R, I could create a specific docker image that I can call specific functions on the fly.
 
 In this workshop we will:
-1. Show an example use case of running multiple tools within docker images in a pipeline; and,
-2. Running Rstudio over the web from within a docker container
+1. Learn how to pull docker images from dockerhub
+2. Detail important docker commands
+3. Run an example which uses multiple tools within docker images in a pipeline; and,
+4. Run `Rstudio` over the web from within a docker container
+
+## Dockerhub
+
+### Pull a repository
+Much like a code repository such as github (https://github.com/) or bitbucket (https://bitbucket.org), Docker Hub is a cloud-based registry service which allows you to link to code repositories, build your images and test them. It is also centralised resource for container development, collaboration, and more importantly, discovery.
+
+In much the same fashion of being able to pull code from a git repository and build a tool for running a program, using docker commands you are able to pull a image and initialise that as a docker container locally. A simple example is to pull the latest ubuntu docker image from dockerhub:
+
+    ubuntu@docker-test:~$ docker pull ubuntu
+    Using default tag: latest
+    latest: Pulling from library/ubuntu
+    ...
+
+Once an image is pulled, we will be able to see that image being run on our machine:
+
+    ubuntu@docker-test:~$ docker images
+    REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
+    ubuntu                  latest              cd6d8154f1e1        7 hours ago         84.1MB
+
+Here we can see that we pulled the image (ID = cd6d8154f1e1) from the ubuntu repository and that its currently running on our local machine. Now we have the container installed, we can run commands on that particular file system.
+
+### Execute docker commands
+
+ Given that this is a generic ubuntu image, lets just run a regular bash command that prints the address of our current working directory:
+
+    ubuntu@docker-test:~$ docker run -ti ubuntu /bin/bash -c "echo Our base directory within the container is && echo `pwd`"
+    Our base directory within the container is
+    /home/ubuntu
+
+
 
 ## Usage Case: Using docker containers in a pipeline
 
@@ -21,10 +53,8 @@ In this first example, we will pull down docker images from tool developers and 
 
 Using the dockerhub website (https://hub.docker.com) we need to pull two images that we can use for our pipeline. These can be version specific, but for now we will use the latest version of both tools.
 
-    # Pull latest bwa docker container from Heng Li's docker repo
+    # Pull latest docker containers for bwa, picard and samtools
     docker pull lh3lh3/bwa
-
-    # Pull the latest version of the broad institutes picard tools
     docker pull broadinstitute/picard
     docker pull comics/samtools
 
@@ -41,6 +71,9 @@ Now we can use these images with some files that we've included in this workshop
     picard=
     samtools="docker run -it comics/samtools samtools"
 
+    # Fetch the data that we'll need to run
+    # - we've prepared this beforehand to reduce
+
     genome=${HOME}/data/TAIR_chr_all.fas
     sample=${HOME}/data/SRR7726416.fastq.gz
 
@@ -51,7 +84,7 @@ Now we can use these images with some files that we've included in this workshop
 
     ${picard} MarkDuplicates I=SRR7726416_Athal.sorted.bam \
         O=SRR7726416_Athal.sorted.markdup.bam \
-        
+
 
 ---
 
