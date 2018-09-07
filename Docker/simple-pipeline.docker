@@ -1,0 +1,58 @@
+#-------------------------------------------------------------------------------
+#  \author Jan P Buchmann <jan.buchmann@sydney.edu.au>
+#  \description BLAST Docker image for ABACBS 2018 Docker Workshop
+#-------------------------------------------------------------------------------
+# Get newest ubuntu container
+FROM ubuntu:latest
+
+# Install (hopefully) minimal dependecies betting on fast mirrors
+# SO: https://askubuntu.com/questions/39922/how-do-you-select-the-fastest-mirror-from-the-command-line
+RUN sed -i -e 's%http://archive.ubuntu.com/ubuntu%mirror://mirrors.ubuntu.com/mirrors.txt%' -e 's/^deb-src/#deb-src/' /etc/apt/sources.list
+RUN apt-get -q update &&  \
+    apt-get install -y liblwp-protocol-https-perl wget python3
+
+# Define build variables (not visible during run time)
+ARG user=biologist
+ARG dbdir=dbs
+
+### Install system wide tools
+# Define enviromental variables for build.
+# Enviroment variables are visible to containers created from containers,
+# e.g. during build\
+ENV BIN /usr/local/bin
+ENV HOME /home/$user
+
+# Install BLAST
+ARG ftp_blast=ftp://ftp.ncbi.nlm.nih.gov/blast/executables/LATEST/ncbi-blast-2.7.1+-x64-linux.tar.gz
+WORKDIR $BIN
+RUN wget $ftp_blast -O - | tar --strip-components 2 -zxvf -
+
+# Adding non-privileged user and change to user $HOME dir
+RUN adduser --shell /bin/bash --disabled-password --gecos '' $user
+WORKDIR $HOME
+
+# Install EDirect Unix tools in user account
+ARG ftp_edirect=ftp.ncbi.nlm.nih.gov/entrez/entrezdirect/edirect.tar.gz
+RUN wget $ftp_edirect && \
+    gunzip -c edirect.tar.gz | tar xf - && rm edirect.tar.gz
+ENV PATH "/home/biologist/edirect:${PATH}"
+RUN /bin/bash ./edirect/setup.sh
+
+# Donwload and install blast databases
+ARG ftp_blastdb1=ftp://ftp.ncbi.nlm.nih.gov/refseq/release/viral/viral.1.1.genomic.fna.gz
+ARG ftp_blastdb2=ftp://ftp.ncbi.nlm.nih.gov/refseq/release/viral/viral.2.1.genomic.fna.gz
+ARG virus_genomes_file=virus_genomes.fa
+ARG virus_genomes_db=virus_genomes
+RUN mkdir $dbdir && \
+    wget $ftp_blastdb1 -O - | gzip -dc  > $dbdir/$virus_genomes_file && \
+    wget $ftp_blastdb2 -O - | gzip -dc >> $dbdir/$virus_genomes_file && \
+    makeblastdb -dbtype nucl                    \
+                -parse_seqids                   \
+                -title virus_genomes            \
+                -in $dbdir/$virus_genomes_file  \
+                -out $dbdir/$virus_genomes_db
+
+#Install pipeline in $user home
+ARG pipeline_dir=simple_pipeline
+COPY $pwd/$pipeline_dir $pipeline_dir
+#ENTRYPOINT ["python3", "pipeline/simple_blast_pipeline.py"]
