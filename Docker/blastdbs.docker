@@ -1,0 +1,9 @@
+#-------------------------------------------------------------------------------
+#  \author Jan P Buchmann <jan.buchmann@sydney.edu.au>
+#  \description Dockerfile to create BLAST databases for ABACBS 2018 Docker Workshop
+#-------------------------------------------------------------------------------
+# Get newest ubuntu container
+FROM abacbs-ws:blasttools
+
+COPY utils/src/update_blastdbs.sh /tmp
+CMD ["/bin/bash", "/tmp/update_blastdbs.sh"]

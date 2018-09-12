@@ -1,0 +1,40 @@
+#-------------------------------------------------------------------------------
+#  \author Jan P Buchmann <jan.buchmann@sydney.edu.au>
+#  \description Dockerfile for NCBI BLAST for ABACBS 2018 Docker Workshop
+#-------------------------------------------------------------------------------
+### Get latest ubuntu container. Use bionic if install fails
+FROM ubuntu:latest
+LABEL description="basic BLAST and NCBI tools"
+
+# Install (hopefully) minimal dependecies and adjusting to fast mirrors
+# SO: https://askubuntu.com/questions/39922/how-do-you-select-the-fastest-mirror-from-the-command-line
+RUN   sed -i \
+          -e 's%http://archive.ubuntu.com/ubuntu%mirror://mirrors.ubuntu.com/mirrors.txt%' \
+          -e 's/^deb-src/#deb-src/' /etc/apt/sources.list  \
+  &&  apt-get -q update     \
+  &&  apt-get install -y    \
+        liblwp-protocol-https-perl  \
+        perl                        \
+        wget                        \
+        python3                     \
+  &&  rm -rf /var/lib/apt/lists/*
+
+### Install system wide tools
+# Define enviromental variables for build. Enviroment variables are visible to
+# containers created from containers, e.g. during build
+ENV BIN /usr/local/bin
+
+### Install BLAST
+WORKDIR $BIN
+ARG ftp_blast=ftp://ftp.ncbi.nlm.nih.gov/blast/executables/LATEST/ncbi-blast-2.7.1+-x64-linux.tar.gz
+RUN wget $ftp_blast -O - | tar --strip-components 2 -zxvf -
+
+# Install EDirect Unix tools
+ARG env_file=/etc/environment
+ARG ftp_edirect=ftp.ncbi.nlm.nih.gov/entrez/entrezdirect/edirect.tar.gz
+RUN  wget $ftp_edirect                                \
+  && gunzip -c edirect.tar.gz | tar xf -              \
+  && /bin/bash ./edirect/setup.sh                     \
+  && echo "PATH=\"$BIN/edirect:${PATH}\"" > $env_file \
+  && rm edirect.tar.gz
+ENV PATH "$BIN/edirect:${PATH}"
