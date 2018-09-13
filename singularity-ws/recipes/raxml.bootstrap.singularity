@@ -1,0 +1,14 @@
+#-------------------------------------------------------------------------------
+#  \author Jan P Buchmann <jan.buchmann@sydney.edu.au>
+#  \description Singularity recipe for ABACBS 2018 Docker Workshop
+#-------------------------------------------------------------------------------
+
+# Header
+#   - Which OS to use as base efor the container
+#   - Configuration of the base system
+#   E.g. which Linux distribution, versions and wich packages are part of the
+#        core install
+BootStrap: debootstrap                                      # Mandatory: Which base to use, e.g. docker, shub, ..
+OSVersion: latest                                           # Mandatory for debootstrap: Which OS version
+MirrorURL: https://mirror.aarnet.edu.au/pub/ubuntu/archive/ # Mandatory: specify URL to use
+Include: build-essential                                    # Optional: Bare core packages to include so %post is good to go
