@@ -1,11 +1,12 @@
 # Workshop 1: Using docker images
 
-Jimmy Breen (jimmy.breen@adelaide.edu.au)
-South Australian Health and Medical Research Institute (SAHMRI) &
-University of Adelaide
+- Jimmy Breen (jimmy.breen@adelaide.edu.au)
+    - South Australian Health and Medical Research Institute (SAHMRI) & University of Adelaide
 
-Jan Buchmann (jan.buchmann@sydney.edu.au)
-University of Sydney
+- Jan Buchmann (jan.buchmann@sydney.edu.au)
+    - University of Sydney
+
+## Introduction
 
 Docker containers can also be used to run specific applications that are completely separate from your local environment, and because of this, they can be invaluable in  This can be used for user testing or for creating specialised environments that serve specific purposes. For example, if I need to run something on a package that was designed for an earlier version of R, I could create a specific docker image that I can call specific functions on the fly.
 
@@ -18,6 +19,7 @@ In this workshop we will:
 ## Dockerhub
 
 ### Pull a repository
+
 Much like a code repository such as github (https://github.com/) or bitbucket (https://bitbucket.org), Docker Hub is a cloud-based registry service which allows you to link to code repositories, build your images and test them. It is also centralised resource for container development, collaboration, and more importantly, discovery.
 
 In much the same fashion of being able to pull code from a git repository and build a tool for running a program, using docker commands you are able to pull a image and initialise that as a docker container locally. A simple example is to pull the latest ubuntu docker image from dockerhub:
@@ -42,8 +44,6 @@ Here we can see that we pulled the image (ID = cd6d8154f1e1) from the ubuntu rep
     ubuntu@docker-test:~$ docker run -ti ubuntu /bin/bash -c "echo Our base directory within the container is && echo `pwd`"
     Our base directory within the container is
     /home/ubuntu
-
-
 
 ## Usage Case: Using docker containers in a pipeline
 
@@ -88,7 +88,7 @@ Now we can use these images with some files that we've included in this workshop
 
 ---
 
-## Usage Case: Running Rstudio in a docker container
+## Usage Case: Running `RStudio` in a docker container
 
 
 Here we will pull an image containing RStudio and run it over a website. This is very helpful when running workshops with large groups of students or researchers.
