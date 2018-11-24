@@ -1,0 +1,83 @@
+%-------------------------------------------------------------------------------
+%  \author Jan P Buchmann <jan.buchmann@sydney.edu.au>
+%  \copyright 2018 The University of Sydney
+%  \description
+%-------------------------------------------------------------------------------
+
+\documentclass{beamer}
+\usetheme{default}
+\usepackage{inconsolata}
+\hypersetup{pdfstartview={Fit}}
+\beamertemplatenavigationsymbolsempty
+\setbeamertemplate{footline}[frame number]
+\usepackage{xspace}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{graphics}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{tikz}
+
+\newcommand{\compresslist}{
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}
+
+%%% Titleslide  %%%
+\title[]{Introdution to Singularity containers}
+\subtitle{}
+\author[]{Jan P. Buchmann\\\small{\href{mailto:jan.buchmann@sydney.edu.au}{jan.buchmann@sydney.edu.au}}}
+\institute{The University Of Sydney}
+\date{2018-11-29}
+%**************************
+\begin{document}
+  \titlepage
+
+  \begin{frame}{Just in case...}
+    \begin{description}
+      \item[Install] \url{https://www.sylabs.io/singularity/get-singularity/}
+      \item[Image repo] \url{https://cloud.sylabs.io/library}
+    \end{description}
+  \end{frame}
+
+  \begin{frame}{Singularity: Containers for HPC}
+    \begin{description}
+      \item[Not a microservice:]Scientific focus, e.g. whole pipelines
+      \item[Single file:] The image is a single file easily share, archive,
+                          reproduce, good for parallel file sytems, e.g. Lustre
+      \item[Run as user:] root to create, user to run
+      \item[Access HPC resources:] MPI, GPUs, InfiniBand/Network, file systems
+    \end{description}
+  \end{frame}
+
+
+  \begin{frame}{Biggest difference to Docker}
+    \begin{block}{Privileges}
+      You run the container as the user who invokes singualrity. You can only
+      be root in the container if you run it as root. Not your usual HPC
+      experience.
+    \end{block}
+    \begin{block}{Daemon}
+      There is no deamon required, Singularity image is mounted as a loopback.
+      Docker swarms need a DockerEngine on each  node or instance they run.
+    \end{block}
+    \begin{block}{Runs closer to the host}
+      Running a singularity container bind mount your \$HOME, /dev, /sys, and
+      /proc automatically by default.
+    \end{block}
+    \begin{block}{Singularity Image Format (SIF) ($\geq$3.0)}
+      Image container format resembling a general file system whoch will allow
+      PGP signing, bleock encryption, partitions accomodating multiple OSes,
+      fast metadata access.
+    \end{block}
+  \end{frame}
+
+  \begin{frame}{Building singularity containers}
+    --writebale
+    file
+  \end{frame}
+
+
+
+\end{document}
