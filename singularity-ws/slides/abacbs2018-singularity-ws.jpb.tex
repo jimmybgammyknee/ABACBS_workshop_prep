@@ -38,6 +38,7 @@
     \begin{description}
       \item[Install] \url{https://www.sylabs.io/singularity/get-singularity/}
       \item[Image repo] \url{https://cloud.sylabs.io/library}
+      \item[Manual] \url{https://www.sylabs.io/guides/3.0/user-guide.pdf}
     \end{description}
   \end{frame}
 
@@ -73,11 +74,20 @@
     \end{block}
   \end{frame}
 
-  \begin{frame}{Building singularity containers}
-    --writebale
-    file
+  \begin{frame}{Speed}
+
   \end{frame}
 
+  \begin{frame}{Building singularity containers}
+    \begin{description}
+      \item[Docker Hub (docker://)] singularity build lolcow.simg docker://godlovedc/lolcow
+      \item[Container Library (library://)] singularity build lolcow.simg library://sylabs-jms/testing/lolcow
+      \item[Singularity Hub (shub://)] singularity build demo.simg shub://jasongallant/singularity\_demosingularity
+      \item[Singularity definition files] Roll your own
+    \end{description}
+  \end{frame}
+
+  \begin{frame}
 
 
 \end{document}
