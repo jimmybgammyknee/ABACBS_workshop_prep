@@ -1,13 +1,3 @@
-#-------------------------------------------------------------------------------
-#  \author Jan P Buchmann <jan.buchmann@sydney.edu.au>
-#  \description Singularity recipe for ABACBS 2018 Docker Workshop
-#-------------------------------------------------------------------------------
-
-# Header: Mandatory
-#   - Which OS to use as containr base
-#   - Configuration of the base system
-#   E.g. which Linux distribution, versions and wich packages are part of the
-#        core install
 BootStrap: docker   # Mandatory: Which base to use, e.g. docker, shub, ..
 From: ubuntu:latest
 
@@ -27,11 +17,11 @@ Add usage later
 #    If using Singularity < 2.3, this is the point to move files into the
 #    container required by %post. For Singularity >= 2.3, use %files section to
 #    copy files reuiqred by %post
-%setup
-  sed -i \
-      -e 's%http://archive.ubuntu.com/ubuntu%mirror://mirrors.ubuntu.com/mirrors.txt%' \
-      -e 's/^deb-src/#deb-src/' /etc/apt/sources.list
-  #mkdir -p ${SINGULARITY_ROOTFS}/tmp/build/cont_build
+#%setup
+#  sed -i \
+#      -e 's%http://archive.ubuntu.com/ubuntu%mirror://mirrors.ubuntu.com/mirrors.txt%' \
+#      -e 's/^deb-src/#deb-src/' /etc/apt/sources.list
+#  #mkdir -p ${SINGULARITY_ROOTFS}/tmp/build/cont_build
 
 ##  %files section
 #    Copy files from host to container before post
@@ -63,8 +53,12 @@ export PATH=/bin:/usr/bin:/usr/local/bin:/usr/local/cuda/bin:
   apt-get -q update
   apt-get -y  --no-install-recommends install git             \
                                               openssl         \
+                                              openmpi-bin     \
+                                              openmpi-common  \
+                                              libopenmpi-dev  \
                                               ca-certificates \
                                               openssh-server  \
+                                              openssh-client  \
                                               build-essential \
                                               mpi-default-dev
   apt-get clean && apt-get autoremove
@@ -83,7 +77,7 @@ export PATH=/bin:/usr/bin:/usr/local/bin:/usr/local/cuda/bin:
     git clone https://github.com/stamatak/standard-RAxML.git
     cd standard-RAxML
   fi
-  make -j1 -f Makefile.AVX.HYBRID.gcc
+  make -j3 -f Makefile.AVX.HYBRID.gcc
   rm *.o
   chmod +x /tmp/cont_build/standard-RAxML/raxmlHPC-HYBRID-AVX
   ln -sf /tmp/cont_build/standard-RAxML/raxmlHPC-HYBRID-AVX /usr/local/bin

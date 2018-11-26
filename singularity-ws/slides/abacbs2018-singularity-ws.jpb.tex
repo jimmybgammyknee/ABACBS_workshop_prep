@@ -36,13 +36,13 @@
 
   \begin{frame}{Just in case...}
     \begin{description}
-      \item[Install] \url{https://www.sylabs.io/singularity/get-singularity/}
-      \item[Image repo] \url{https://cloud.sylabs.io/library}
+      \item[Download] \url{https://www.sylabs.io/singularity/get-singularity/}
       \item[Manual] \url{https://www.sylabs.io/guides/3.0/user-guide.pdf}
     \end{description}
   \end{frame}
 
   \begin{frame}{Singularity: Containers for HPC}
+   Containers are encapsulated system enviroments
     \begin{description}
       \item[Not a microservice:]Scientific focus, e.g. whole pipelines
       \item[Single file:] The image is a single file easily share, archive,
@@ -55,7 +55,7 @@
 
   \begin{frame}{Biggest difference to Docker}
     \begin{block}{Privileges}
-      You run the container as the user who invokes singualrity. You can only
+      You run the container as the user who invokes singularity. You can only
       be root in the container if you run it as root. Not your usual HPC
       experience.
     \end{block}
@@ -69,7 +69,7 @@
     \end{block}
     \begin{block}{Singularity Image Format (SIF) ($\geq$3.0)}
       Image container format resembling a general file system whoch will allow
-      PGP signing, bleock encryption, partitions accomodating multiple OSes,
+      PGP signing, block encryption, partitions accomodating multiple OSes,
       fast metadata access.
     \end{block}
   \end{frame}
@@ -78,16 +78,57 @@
 
   \end{frame}
 
+  \begin{frame}{Overall singularity workflow}
+    \input{figs/singularity-workflow-overall.fig.tex}
+  \end{frame}
+
   \begin{frame}{Building singularity containers}
     \begin{description}
       \item[Docker Hub (docker://)] singularity build lolcow.simg docker://godlovedc/lolcow
       \item[Container Library (library://)] singularity build lolcow.simg library://sylabs-jms/testing/lolcow
       \item[Singularity Hub (shub://)] singularity build demo.simg shub://jasongallant/singularity\_demosingularity
-      \item[Singularity definition files] Roll your own
+      \item[Singularity receipe files] Roll your own
     \end{description}
   \end{frame}
 
+  \begin{frame}{Invoking singularity}
+    \footnotesize
+    \texttt{singularity [global options] command [command options]}\\
+    \texttt{singularity -v build --sandbox /tmp/ubuntu docker://ubuntu:latest}
+  \end{frame}
+
+  \begin{frame}{Workflow: Build enviroment (root)}
+        \begin{block}{Interactive}
+          \begin{itemize}
+            \item singularity build --sandbox /tmp/ubuntu docker://ubuntu:latest
+            \item singularity exec --writeable /tmp/ubuntu apt-get install python
+            \item singularity build /tmp/ubuntu.sif /tmp/ubuntu
+          \end{itemize}
+        \end{block}
+  \end{frame}
+  \begin{frame}{Workflow: Build enviroment (root)}
+    \begin{block}{Receipe}
+
+    \end{block}
+  \end{frame}
   \begin{frame}
+    \begin{block}{Production enviroment (user)}
+
+    \end{block}
+  \end{frame}
+
+
+
+
+  \begin{frame}{singularity receipe files}
+  \end{frame}
+
+  \begin{frame}{Bind paths}
+
+  \end{frame}
+
+  \begin{frame}{Overlays}
+  \end{frame}
 
 
 \end{document}
