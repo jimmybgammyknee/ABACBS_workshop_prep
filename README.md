@@ -1,3 +1,4 @@
+
 # ABACBS Workshop: Docker Containers and Singularity Images
 
 Date: November 29, 9am-12:30pm
@@ -8,7 +9,33 @@ Run by:
 - Jimmy Breen (jimmy.breen@adelaide.edu.au): South Australian Health and Medical Research Institute (SAHMRI) &
 University of Adelaide
 
+## Quick setup
+
+        # Install build stuff
+        sudo apt-get update && \
+        sudo apt-get install git python dh-autoreconf \
+            build-essential libarchive-dev
+
+        # Install Docker
+        wget -qO- https://get.docker.com/ | sh
+        sudo usermod -aG docker ubuntu
+        newgrp docker
+
+        # Install singularity (for later)
+        # Install
+        VER=2.5.2
+        wget https://github.com/singularityware/singularity/releases/download/$VER/singularity-$VER.tar.gz
+        tar xvf singularity-$VER.tar.gz
+        cd singularity-$VER
+        ./configure --prefix=/usr/local --sysconfdir=/etc
+        make
+        sudo make install
+
+
 ## Outline
+Docker containers allow you to test and distribute simple and complex pipelines. You can write pipelines with different dependencies without the need to install them on your machine. Users can then pull your pipelines or tools and start using them without having to worry about dependencies or adventurous installation instructions. If your tool or pipeline can run on a HPC cluster, you can also deploy them as Singularity images, a more secure variant of docker containers. The workshop will introduce you to Docker Containers and Singularity Images. You will learn how to create, run, and distribute them using typical biological tasks as examples. Participants are invited to bring their own pipelines they wish to "Dockerize" in the last part of the workshop.
+
+## Run down
 
 9am (30mins): Setup
 - Configuring Nectar Virtual Machine for workshop
@@ -20,7 +47,12 @@ University of Adelaide
 - Advantages and disadvantages
     - Reproducible pipelines
     - Static environments
-    - Distribution within the cloud
+    - Easy distribution within the cloud
+
+---
+**Note:** If you have a pipeline that you would like to containerise, let us know in the break because at 12pm we will break into two groups based on pipeline category
+- For example: One group could be running pipeline for variant calling (qc, mapping, duplicate removal, variant calls), and one group could be running RNA transcript quantification (trimming, `kallisto/salmon` or `STAR` and `featureCounts` for quantification)
+---
 
 10am: Workshop 1: Using docker for pipeline management
 - Using Dockerhub to run local docker images
@@ -39,8 +71,10 @@ University of Adelaide
 - Run simple BLAST pipeline (`efetch`, `makeblastdb`, `blastn`) to search 10 virus genomes
 
 12:00pm: "Bring your own pipeline"
-- Split group into two groups and work on two separate pipeline themes
 
 12:30pm: Workshop end
 
----
+### Basic Containerisation resources
+- Dockerhub (https://hub.docker.com/)
+- Singularity container registry (https://singularity-hub.org/)
+
