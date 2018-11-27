@@ -1,0 +1,12 @@
+#-------------------------------------------------------------------------------
+#  \author Jan P Buchmann <jan.buchmann@sydney.edu.au>
+#  \description Simple pipeline Docker image for ABACBS 2018 Docker Workshop
+#-------------------------------------------------------------------------------
+FROM abacbs-ws:blasttools as blasttools
+ARG pdir=simple_pipeline
+
+#Install pipeline in $user home
+ENV pipline_path=/$pdir/src/
+COPY $pdir $pdir
+ENV PATH=${pipline_path}:${PATH}
+#ENTRYPOINT ["cd", "pipeline/simple_blast_pipeline.py"]

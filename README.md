@@ -1,4 +1,5 @@
-# ABACBS Workshop: Docker Containers and Singularity Images
+
+# ABACBS 2018 Container Workshop
 
 Date: November 29, 9am-12:30pm
 University of Melbourne
@@ -7,6 +8,29 @@ Run by:
 - Jan Buchmann (jan.buchmann@sydney.edu.au): University of Sydney
 - Jimmy Breen (jimmy.breen@adelaide.edu.au): South Australian Health and Medical Research Institute (SAHMRI) &
 University of Adelaide
+
+## Requirements:
+
+- Laptop with administrative privileges
+- Installed [Docker](https://store.docker.com/search?type=edition&offering=community) and [Singularity](https://www.sylabs.io/singularity/get-singularity/)
+- Experience with the command-line of your OS (examples are shown in Linux)
+- Familiarity with git and ssh
+- If possible, a [Nectar](https://dashboard.rc.nectar.org.au/) login
+
+# Timetable
+
+Honeetly, times may vary. Consider this an outline.
+
+Block | Time        | Topic          | Who
+----- |-------------|----------------|---------------
+0     |09:00-09:30  | Setup          | Jimmy and Jan
+1     |09:30-10:00  | Docker I       | Jimmy
+2     |10:00-10:30  | Docker II      | Jimmy
+Break |10:30-11:00  |                |
+3     |11:00-11:15  | Singularity I  | Jan
+4     |11:15-11:30  | Singularity II | Jan
+5     |11:30-12:30  | Roll your own  | Jimmy and Jan
+
 
 ## Outline
 
@@ -43,4 +67,3 @@ University of Adelaide
 
 12:30pm: Workshop end
 
----
