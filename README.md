@@ -1,9 +1,16 @@
+
 # ABACBS 2018 Container Workshop
 
-This workshop is intended to introduce you to the two containerization commonly 
-used in bioinformatics, Docker and Singularity.
+Date: November 29, 9am-12:30pm
+University of Melbourne
+
+Run by:
+- Jan Buchmann (jan.buchmann@sydney.edu.au): University of Sydney
+- Jimmy Breen (jimmy.breen@adelaide.edu.au): South Australian Health and Medical Research Institute (SAHMRI) &
+University of Adelaide
 
 ## Requirements:
+
 - Laptop with administrative privileges
 - Installed [Docker](https://store.docker.com/search?type=edition&offering=community) and [Singularity](https://www.sylabs.io/singularity/get-singularity/)
 - Experience with the command-line of your OS (examples are shown in Linux)
@@ -16,39 +23,47 @@ Honeetly, times may vary. Consider this an outline.
 
 Block | Time        | Topic          | Who
 ----- |-------------|----------------|---------------
-0     |09:00-09:30  | Setup          | James and Jan
-1     |09:30-10:00  | Docker I       | James
-2     |10:00-10:30  | Docker II      | James
+0     |09:00-09:30  | Setup          | Jimmy and Jan
+1     |09:30-10:00  | Docker I       | Jimmy
+2     |10:00-10:30  | Docker II      | Jimmy
 Break |10:30-11:00  |                |
 3     |11:00-11:15  | Singularity I  | Jan
 4     |11:15-11:30  | Singularity II | Jan
-5     |11:30-12:30  | Roll your own  | James and Jan
+5     |11:30-12:30  | Roll your own  | Jimmy and Jan
 
 
-## Topics:
+## Outline
 
-### Setup:
-- Download workshop repository
-  - Nectar VM setup
-  - Installation of Docker and Singularity on Nectar
+9am (30mins): Setup
+- Configuring Nectar Virtual Machine for workshop
+  - Setting Security Groups
 
-### Docker I
+9:30am: Introduction to Docker
+- Short history of containerisation
+- Technicalities
+- Advantages and disadvantages
+    - Reproducible pipelines
+    - Static environments
+    - Distribution within the cloud
 
-- Introduction to Docker
-  - Technicalities
-  - Advantages and disadvantages
+10am: Workshop 1: Using docker for pipeline management
+- Using Dockerhub to run local docker images
+- Running a pipeline using multiple docker images
+- Running `RStudio` in docker over the web
 
-### Docker II
+10:30am - Break
 
-  - Using docker for pipeline management
-  - Define a simplified pipeline
+11am: Introduction to Singularity and dockers on HPC
+- Singularity vs docker
+- Converting docker containers
+- Working with queuing systems (PBS, Slurm)
 
-### Singularity I
-  - Introduction to Singularity
-  - Singularity vs. Docker
+11:15am: Workshop 2: Creating a docker/singularity pipeline from scratch
+- Building docker and singularity containers
+- Run simple BLAST pipeline (`efetch`, `makeblastdb`, `blastn`) to search 10 virus genomes
 
-### Singularity II
-- Creating RAxML Singualrity image and corresponding PBS to run on an HPC
+12:00pm: "Bring your own pipeline"
+- Split group into two groups and work on two separate pipeline themes
 
-### Roll your own
-- Turn your pipeline into a container or image
+12:30pm: Workshop end
+
