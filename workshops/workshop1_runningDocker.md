@@ -63,11 +63,12 @@ Here we will pull an image containing RStudio and run it over a website. This is
 ### Setup
 
 Firstly, we will need to change our Nectar VM settings to allow traffic through port 8787. This is the port in which rstudio runs:
-    - On the left hand-side of the Nectar Cloud Dashboard, select the tab "Network" and sub-tab "Security Groups"
-    - Click on "Add Security Group" near the top of the page and name the new group "RStudio"
-    - On the new Security Group, click the "Manage Rules" and then "Add Rule"
-    - Add "8787" to the port range and click "Add" (All options should be: Custom TCP Rule - Ingress - Port - 8787 - CIDR - 0.0.0.0/0 - IPv4)
-    - Go back to your VM settings and add the new security group. To do this, on the left hand-side of the Nectar Cloud Dashboard, go to "Compute" and then click on "Instances". You should see your active instance. In the "Actions" column click the down arrow and then choose "Edit Security Groups", and then add the new "Rstudio" group to the right hand side of the screen (active groups).
+
+- On the left hand-side of the Nectar Cloud Dashboard, select the tab "Network" and sub-tab "Security Groups"
+- Click on "Add Security Group" near the top of the page and name the new group "RStudio"
+- On the new Security Group, click the "Manage Rules" and then "Add Rule"
+- Add "8787" to the port range and click "Add" (All options should be: Custom TCP Rule - Ingress - Port - 8787 - CIDR - 0.0.0.0/0 - IPv4)
+- Go back to your VM settings and add the new security group. To do this, on the left hand-side of the Nectar Cloud Dashboard, go to "Compute" and then click on "Instances". You should see your active instance. In the "Actions" column click the down arrow and then choose "Edit Security Groups", and then add the new "Rstudio" group to the right hand side of the screen (active groups).
 
 ### Pull and launch
 
