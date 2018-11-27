@@ -1,0 +1,22 @@
+#!/bin/bash
+#PBS -N raxmlsimg
+#PBS -l select=2:ncpus=2:mpiprocs=2:mem=6Gb
+#PBS -l walltime=0:10:0
+#PBS -M <you@email>
+#PBS -m abe
+#PBS -o simg.stdout
+#PBS -e simg.stderr
+#PBS -P <PROJECTID>
+
+module load singularity/2.5.2
+module load openmpi-gcc/1.10.2
+
+cd $PBS_O_WORKDIR
+
+mpirun -np 4 singularity run -B /project:/project -B /scratch:/scratch \
+                            raxml.image -p 314156 \
+                                        -m GTRCAT \
+                                        -T 2      \
+                                        -N 10     \
+                                        -s /project/alignment.fa \
+                                        -n tree.raxml
