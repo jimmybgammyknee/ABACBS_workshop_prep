@@ -10,7 +10,7 @@ Step  |  Host                                                                   
 5     |                                                                         | `touch /tmp/fromtheinside`
 6     | `ls $HOME`                                                              | `touch /usr/local/bin/fromtheinside`
 7     |                                                                         | `exit`
-8     | `sudo singularity shell --writbale  /tmp/ubuntu/`                      |
+8     | `sudo singularity shell --writable  /tmp/ubuntu/`                       |
 9     | `singularity exec  /tmp/ubuntu/ echo "Let's go bowling"`                |
 10    | `sudo singularity exec --writable  /tmp/ubuntu/ apt-get update`         |
 11    | `sudo singularity exec --writable  /tmp/ubuntu/ apt-get install git build-essential ca-certificates openssl openssh-server openmpi-bin openmpi-common libopenmpi-dev`|
@@ -22,7 +22,3 @@ Step  |  Host                                                                   
 17    | `sudo singularity build raxml.sif /tmp/ubuntu/`                         |
 18    | `sudo singularity shell raxml.sif`                                      |
 18    |                                                                         | `which raxmlHPC-HYBRID-AVX`
-
-- `sudo singularity shell -B /tmp:/builds  --writable  /tmp/ubuntu/`
-
-#

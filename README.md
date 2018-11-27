@@ -1,22 +1,19 @@
 # ABACBS 2018 Container Workshop
 
-This workshop is intended to introduce you into the common containers used in
-bioinformatics, Docker and Singularity.
+This workshop is intended to introduce you to the two containerization commonly 
+used in bioinformatics, Docker and Singularity.
 
 ## Requirements:
 - Laptop with administrative privileges
-- Installed Docker [0] and Singularity [1]
-- Experience with the command-line of your OS (the examples are shown in Linux)
+- Installed [Docker](https://store.docker.com/search?type=edition&offering=community) and [Singularity](https://www.sylabs.io/singularity/get-singularity/)
+- Experience with the command-line of your OS (examples are shown in Linux)
 - Familiarity with git and ssh
-
-[0](https://store.docker.com/search?type=edition&offering=community])
-[1]()
-# Important links:
- - [Workshop](https://git..)
- - [Docker](..)
- - [Singularity]()
+- If possible, a [Nectar](https://dashboard.rc.nectar.org.au/) login
 
 # Timetable
+
+Honeetly, times may vary. Consider this an outline.
+
 Block | Time        | Topic          | Who
 ----- |-------------|----------------|---------------
 0     |09:00-09:30  | Setup          | James and Jan
@@ -31,7 +28,6 @@ Break |10:30-11:00  |                |
 ## Topics:
 
 ### Setup:
-
 - Download workshop repository
   - Nectar VM setup
   - Installation of Docker and Singularity on Nectar
@@ -52,11 +48,7 @@ Break |10:30-11:00  |                |
   - Singularity vs. Docker
 
 ### Singularity II
-Creating RAxML Singualrity image
+- Creating RAxML Singualrity image and corresponding PBS to run on an HPC
 
 ### Roll your own
-- Split group into two groups and work on two separate pipeline themes
-
-jan@salk:~/courses/2018_ABACBS_workshop/course/ABACBS_workshop_prep/work$ singularity run -B ~/courses:/project  -B /tmp:/scratch raxml.simg -p 314156 -m GTRCAT -T 2 -N 10  -s /project/2018_ABACBS_workshop/course/ABACBS_workshop_prep/work/h3n2-ha.muscle.fa  -n aln.raxml
-
-sudo singularity -v run -B /tmp:/tmp sing-252.simg build /tmp/raxml.simg252 raxml.ubuntu.singularit
+- Turn your pipeline into a container or image

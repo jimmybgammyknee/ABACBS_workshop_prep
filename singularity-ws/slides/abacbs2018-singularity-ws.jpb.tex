@@ -59,7 +59,7 @@
       be root in the container if you run it as root. Not your usual HPC
       experience.
     \end{block}
-    \begin{block}{Daemon}
+    \begin{block}{No daemon}
       There is no deamon required, Singularity image is mounted as a loopback.
       Docker swarms need a DockerEngine on each  node or instance they run.
     \end{block}
@@ -71,6 +71,10 @@
       Image container format resembling a general file system whoch will allow
       PGP signing, block encryption, partitions accomodating multiple OSes,
       fast metadata access.
+    \end{block}
+    \begin{block}{Docker layers change}
+      Docker image layers can change, i.e. a docker image has likely changed
+      layers when pulled a couple of months later.
     \end{block}
   \end{frame}
 
@@ -117,10 +121,14 @@
     \end{block}
   \end{frame}
 
-
-
-
   \begin{frame}{singularity receipe files}
+  \end{frame}
+
+  \begin{frame}{singularity on HPC}
+    \begin{itemize}
+      \item host and container need same openmpi version
+      \item adjust image for binding
+    \end{itemize}
   \end{frame}
 
   \begin{frame}{Bind paths}
