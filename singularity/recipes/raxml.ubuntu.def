@@ -1,15 +1,17 @@
 #-------------------------------------------------------------------------------
 #  \author Jan P Buchmann <jan.buchmann@sydney.edu.au>
-#  \description Singularity recipe for ABACBS 2018 Docker Workshop
+#  \description Singularity recipe for ABACBS 2018 Docker Workshop.
+#               The Ubuntu version has been chosen to accomodate
+#               OpenMPI on the USYD cluster.
 #-------------------------------------------------------------------------------
 
 # Header: Mandatory
-#   - Which OS to use as containr base
+#   - Which OS to use as container base
 #   - Configuration of the base system
 #   E.g. which Linux distribution, versions and wich packages are part of the
 #        core install
-Bootstrap: shub # Mandatory: Which base to use, e.g. docker, shub, ..
-From: singularityhub/ubuntu
+Bootstrap: docker # Mandatory: Which base to use, e.g. docker, shub, ..
+From: ubuntu:16.04
 
 # Sections : Optional
 # defined by '%' and followed by its name. Use to control the build process and
@@ -31,7 +33,6 @@ Add usage later
 #  sed -i \
 #      -e 's%http://archive.ubuntu.com/ubuntu%mirror://mirrors.ubuntu.com/mirrors.txt%' \
 #      -e 's/^deb-src/#deb-src/' /etc/apt/sources.list
-  #mkdir -p ${SINGULARITY_ROOTFS}/tmp/build/cont_build
 
 ##  %files section
 #    Copy files from host to container before post
@@ -48,50 +49,58 @@ Add usage later
 ##  %enviroment section
 #     Enviroment variables are sourced during run time, not build time.
 #     Use same conventions as in .bashrc, .profile, etc.
-#     Set enviroment variabels required for build in %post, not here.
+#     Set environment variables required for build in %post, not here.
 #     However, echo 'export MYVAR=iamthewalrus' >> $SINGULARITY_ENVIRONMENT will
 #     export during %post.
-export PATH=/bin:/usr/bin:/usr/local/bin:/usr/local/cuda/bin:
+%enviroment
+  export PATH=/bin:/usr/bin:/usr/local/bin:/usr/local/cuda/bin:
 
 ## % post section
-#   All commnads are run during build time in the containre after installing the
+#   All commands are run during build time in the containre after installing the
 #   base OS. At this point, files cannot be copied from host to the container,
 #   but using git, wget, curl, scp, etc. will work. Runs as root.
 #   If you want to use mutiple nodes on an HPC enviroment, you need to make
 #   sure that your system has MPI installed.
 %post
   apt-get -q update
-  apt-get -y  --no-install-recommends install git openssl ca-certificates  \
-   openssh-server build-essential openmpi-bin openmpi-common  libopenmpi-dev mpi-default-dev
-  
+  apt-get -y  --no-install-recommends install ssh git openssl ca-certificates \
+  openssh-server build-essential  openmpi-common libopenmpi-dev openmpi-bin
+
   apt-get clean && apt-get autoremove
   rm -rf /var/lib/apt/lists/*
 
-  ### destination for HPC bind mounts
+  ## create destination for HPC bind mounts
   mkdir -p /project /scratch
   touch /usr/bin/nvidia-smi
+
+  ## Install required tools
   cd /tmp/
-  if [ -d standard-RAxML ]; then
-    cd standard-RAxML
-    git pull
-  else
-    git clone https://github.com/stamatak/standard-RAxML.git
-    cd standard-RAxML
-  fi
+  git clone https://github.com/stamatak/standard-RAxML.git
+  cd standard-RAxML
   make -j2 -f Makefile.AVX.HYBRID.gcc
   rm *.o
   mv raxmlHPC-HYBRID-AVX /usr/local/bin
   chmod +x /usr/local/bin/raxmlHPC-HYBRID-AVX
 
+  cd /tmp
+  rm -rf standard-RAxML
+  git clone https://github.com/open-mpi/ompi.git
+  cd ompi
+  mpicc examples/ring_c.c -o /usr/local/bin/mpi_ring
+  cd /tmp
+  rm -rf ompi
+  exit 0
+
 ## %runscript section
 #   %runscript is not executed during build,but called upon running the
 #   singularity image, analogous to Docker's CMD or ENTRYPOINT.
-#   Handle argumnet processing etc.
+#   Handle argument processing etc.
 %runscript
   exec raxmlHPC-HYBRID-AVX  "$@"
 
 %test
- # raxmlHPC-HYBRID-AVX -v
+  raxmlHPC-HYBRID-AVX -v
+  mpirun --allow-run-as-root /usr/local/bin/mpi_ring
 
 ## %startscript section
 #   Define what to do if started as an instance

@@ -15,6 +15,7 @@
 \usepackage{hyperref}
 \usepackage{graphics}
 \usepackage{listings}
+\usepackage{jpb.lst}
 \usepackage{multirow}
 \usepackage{tikz}
 
@@ -35,16 +36,18 @@
   \titlepage
 
   \begin{frame}{Just in case...}
+    \small
     \begin{description}
       \item[Download] \url{https://www.sylabs.io/singularity/get-singularity/}
       \item[Manual] \url{https://www.sylabs.io/guides/3.0/user-guide.pdf}
+      \item[Paper] \url{https://www.sylabs.io/guides/3.0/user-guide.pdf}
     \end{description}
   \end{frame}
 
   \begin{frame}{Singularity: Containers for HPC}
    Containers are encapsulated system enviroments
     \begin{description}
-      \item[Not a microservice:]Scientific focus, e.g. whole pipelines
+      \item[Not a microservice:] Scientific focus, e.g. whole pipelines
       \item[Single file:] The image is a single file easily share, archive,
                           reproduce, good for parallel file sytems, e.g. Lustre
       \item[Run as user:] root to create, user to run
@@ -52,8 +55,8 @@
     \end{description}
   \end{frame}
 
-
   \begin{frame}{Biggest difference to Docker}
+    \small
     \begin{block}{Privileges}
       You run the container as the user who invokes singularity. You can only
       be root in the container if you run it as root. Not your usual HPC
@@ -102,41 +105,36 @@
   \end{frame}
 
   \begin{frame}{Workflow: Build enviroment (root)}
-        \begin{block}{Interactive}
-          \begin{itemize}
-            \item singularity build --sandbox /tmp/ubuntu docker://ubuntu:latest
-            \item singularity exec --writeable /tmp/ubuntu apt-get install python
-            \item singularity build /tmp/ubuntu.sif /tmp/ubuntu
-          \end{itemize}
-        \end{block}
-  \end{frame}
-  \begin{frame}{Workflow: Build enviroment (root)}
-    \begin{block}{Receipe}
-
-    \end{block}
-  \end{frame}
-  \begin{frame}
-    \begin{block}{Production enviroment (user)}
-
+    \small
+    \begin{block}{Interactive}
+      \bashexternal{lsts/singularity-interactive.sh}
     \end{block}
   \end{frame}
 
-  \begin{frame}{singularity receipe files}
+  \begin{frame}{Workflow: Let's build a container..}
+    \begin{verbatim}
+      \end{verbatim}
+    \begin{block}{Interactive}
+      \bashexternal{lsts/singularity-interactive.sh}
+      Example: \url{../commands/commands.md}
+    \end{block}
   \end{frame}
 
-  \begin{frame}{singularity on HPC}
+  \begin{frame}{Workflow: Receipe file}
+      \begin{itemize}
+        \item Preferred way to crate images. Use interactive to get details
+              right, test depencdencies, etc.  than fixeverything in a receipe
+              file.
+        \end{itemize}
+      Example: \url{../receipes/raxml.ubuntu.def}
+  \end{frame}
+
+  \begin{frame}{Singularity on HPC}
     \begin{itemize}
-      \item host and container need same openmpi version
-      \item adjust image for binding
+      \item Host and container OS need same OpenMPI/MPI version
+      \item Adjust image for binding directories
+      \item Adjust GPU specific files, libraries
     \end{itemize}
+    Example PBS file: \url{../receipes/raxml-sing.pbs}
   \end{frame}
-
-  \begin{frame}{Bind paths}
-
-  \end{frame}
-
-  \begin{frame}{Overlays}
-  \end{frame}
-
-
 \end{document}
