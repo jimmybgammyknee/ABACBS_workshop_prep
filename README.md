@@ -11,26 +11,30 @@ University of Adelaide
 
 ## Quick setup
 
-        # Install build stuff
+        ### Install build stuff
         sudo apt-get update && \
         sudo apt-get install git python dh-autoreconf \
             build-essential libarchive-dev
 
-        # Install Docker
+        ### Install Docker
         wget -qO- https://get.docker.com/ | sh
         sudo usermod -aG docker ubuntu
         newgrp docker
 
-        # Install singularity (for later)
-        # Install
-        VER=2.5.2
-        wget https://github.com/singularityware/singularity/releases/download/$VER/singularity-$VER.tar.gz
-        tar xvf singularity-$VER.tar.gz
-        cd singularity-$VER
-        ./configure --prefix=/usr/local --sysconfdir=/etc
-        make
-        sudo make install
+      
+        ### Install singularity (for later)
 
+          #### Install Singularity 2.2.5
+          VER=2.5.2
+          wget https://github.com/singularityware/singularity/releases/download/$VER/singularity-$VER.tar.gz
+          tar xvf singularity-$VER.tar.gz
+          cd singularity-$VER
+          ./configure --prefix=/usr/local --sysconfdir=/etc
+          make
+          sudo make install
+
+          #### Install Singularity  3
+            Follow the steps described on (https://github.com/sylabs/singularity.git)
 
 ## Outline
 Docker containers allow you to test and distribute simple and complex pipelines. You can write pipelines with different dependencies without the need to install them on your machine. Users can then pull your pipelines or tools and start using them without having to worry about dependencies or adventurous installation instructions. If your tool or pipeline can run on a HPC cluster, you can also deploy them as Singularity images, a more secure variant of docker containers. The workshop will introduce you to Docker Containers and Singularity Images. You will learn how to create, run, and distribute them using typical biological tasks as examples. Participants are invited to bring their own pipelines they wish to "Dockerize" in the last part of the workshop.
@@ -68,7 +72,7 @@ Docker containers allow you to test and distribute simple and complex pipelines.
 
 11:15am: Workshop 2: Creating a docker/singularity pipeline from scratch
 - Building docker and singularity containers
-- Run simple BLAST pipeline (`efetch`, `makeblastdb`, `blastn`) to search 10 virus genomes
+- Build a RAxML image for HPC use
 
 12:00pm: "Bring your own pipeline"
 
