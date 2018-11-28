@@ -1,6 +1,0 @@
-theme : sky
-mathjax : TeX-MML-AM_HTMLorMML-full
-layout : center
-published : true
-theme-override : PITCHME.css
-slide-number: true
