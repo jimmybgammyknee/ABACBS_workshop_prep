@@ -77,11 +77,8 @@ Now we can use these images with some files that we've included. You will need t
     # Fetch the data that we'll need to run
     # - we've prepared this beforehand to reduce
 
-    genome=${HOME}/TAIR10_chr_all.fas
-    sample=${HOME}/SRR7726416.fastq.gz
-
-    ${bwa} index -p Athaliana ${genome}
-    zcat ${sample} | ${bwa} mem Athaliana /dev/stdin | \
+    ${bwa} index -p Athaliana TAIR10_chr_all.fas
+    zcat SRR7726416.fastq.gz | ${bwa} mem Athaliana /dev/stdin | \
         ${samtools} view -bhS - > SRR7726416_Athal.bam
     ${samtools} sort -o SRR7726416_Athal.sorted.bam SRR7726416_Athal.bam
 
