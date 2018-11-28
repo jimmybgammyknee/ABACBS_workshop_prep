@@ -18,7 +18,7 @@
 \usepackage{jpb.lst}
 \usepackage{multirow}
 \usepackage{tikz}
-
+\newcommand{\tty}[1]{\texttt{#1}\xspace}
 \newcommand{\compresslist}{
   \setlength{\itemsep}{1pt}
   \setlength{\parskip}{0pt}
@@ -27,7 +27,7 @@
 
 %%% Titleslide  %%%
 \title[]{Introdution to Singularity containers}
-\subtitle{}
+\subtitle{ABACBS 2018 Container Workshop\\James Breen \& Jan P. Buchmann}
 \author[]{Jan P. Buchmann\\\small{\href{mailto:jan.buchmann@sydney.edu.au}{jan.buchmann@sydney.edu.au}}}
 \institute{The University Of Sydney}
 \date{2018-11-29}
@@ -36,11 +36,11 @@
   \titlepage
 
   \begin{frame}{Just in case...}
-    \small
+    \footnotesize
     \begin{description}
-      \item[Download] \url{https://www.sylabs.io/singularity/get-singularity/}
-      \item[Manual] \url{https://www.sylabs.io/guides/3.0/user-guide.pdf}
-      \item[Paper] \url{https://www.sylabs.io/guides/3.0/user-guide.pdf}
+      \item[Download] \leavevmode\\ \url{https://www.sylabs.io/singularity/get-singularity/}
+      \item[Manual] \leavevmode\\ \url{https://www.sylabs.io/guides/3.0/user-guide.pdf}
+      \item[Paper] \leavevmode\\ \url{https://doi.org/10.1371/journal.pone.0177459}
     \end{description}
   \end{frame}
 
@@ -63,17 +63,16 @@
       experience.
     \end{block}
     \begin{block}{No daemon}
-      There is no deamon required, Singularity image is mounted as a loopback.
+      There is no daemon required, Singularity image is mounted as a loopback.
       Docker swarms need a DockerEngine on each  node or instance they run.
     \end{block}
     \begin{block}{Runs closer to the host}
-      Running a singularity container bind mount your \$HOME, /dev, /sys, and
-      /proc automatically by default.
+      Running a singularity container bind mounts your \tty{\$HOME}, \tty{/dev},
+      \tty{/sys}, \tty{/tmp}, \tty{/var/tmp}, and \tty{/proc} by default.
     \end{block}
-    \begin{block}{Singularity Image Format (SIF) ($\geq$3.0)}
-      Image container format resembling a general file system whoch will allow
-      PGP signing, block encryption, partitions accomodating multiple OSes,
-      fast metadata access.
+    \begin{block}{Expect ongoing chnages}
+      Expect ongoing changes, e.g. differences singularity 2.2.5 to 3.0.1.
+      Keeps you on your toes.
     \end{block}
     \begin{block}{Docker layers change}
       Docker image layers can change, i.e. a docker image has likely changed
@@ -82,51 +81,87 @@
   \end{frame}
 
   \begin{frame}{Speed}
+    Negligible tradeoffs compared to bare metal.
+    \begin{itemize}
+      \item \url{https://arxiv.org/pdf/1709.10140.pdf}
+    \end{itemize}
 
   \end{frame}
 
-  \begin{frame}{Overall singularity workflow}
-    \input{figs/singularity-workflow-overall.fig.tex}
+  \begin{frame}{Overall Singularity workflow}
+    \begin{enumerate}
+      \item Build basic image
+      \item Modify basic image $\rightarrow$ your image
+      \item Copy your image to HPC, laptop, Grandma's fridge...
+      \item Run your image
+    \end{enumerate}
   \end{frame}
 
   \begin{frame}{Building singularity containers}
-    \begin{description}
-      \item[Docker Hub (docker://)] singularity build lolcow.simg docker://godlovedc/lolcow
-      \item[Container Library (library://)] singularity build lolcow.simg library://sylabs-jms/testing/lolcow
-      \item[Singularity Hub (shub://)] singularity build demo.simg shub://jasongallant/singularity\_demosingularity
-      \item[Singularity receipe files] Roll your own
-    \end{description}
+    \footnotesize
+    \begin{block}{Docker Hub (docker://)}
+      \tty{singularity build lolcow.simg docker://godlovedc/lolcow}
+    \end{block}
+
+    \begin{block}{Container Library  (library://)}
+      requires $\ge 3.0$\\
+      \tty{singularity build lolcow.simg library://sylabs-jms/testing/lolcow}
+    \end{block}
+    \begin{block}{Singularity Hub (shub://)}
+        {singularity build demo.simg shub://jasongallant/singularity\_demosingularity}
+    \end{block}
+    \begin{block}{Singularity receipe files}
+      Roll your own
+    \end{block}
   \end{frame}
 
   \begin{frame}{Invoking singularity}
-    \footnotesize
-    \texttt{singularity [global options] command [command options]}\\
-    \texttt{singularity -v build --sandbox /tmp/ubuntu docker://ubuntu:latest}
+    \begin{block}{Run singularity}
+      \footnotesize
+      \texttt{singularity [global options] command [command options]}\\
+      For example:\\
+      \texttt{singularity -v build --sandbox /tmp/ubuntu docker://ubuntu:latest}
+    \end{block}
+    \begin{block}{Very useful commands}
+      \texttt{\$: singularity help}\\
+      For example:\\
+      \texttt{\$: singularity help build}\\
+    \end{block}
   \end{frame}
 
-  \begin{frame}{Workflow: Build enviroment (root)}
+  \begin{frame}{Workflow: Build environment (root)}
     \small
     \begin{block}{Interactive}
       \bashexternal{lsts/singularity-interactive.sh}
     \end{block}
   \end{frame}
 
-  \begin{frame}{Workflow: Let's build a container..}
-    \begin{verbatim}
-      \end{verbatim}
-    \begin{block}{Interactive}
-      \bashexternal{lsts/singularity-interactive.sh}
-      Example: \url{../commands/commands.md}
-    \end{block}
+  \begin{frame}[fragile]{Workflow: Let's build ourself a container}
+  \begin{block}{In your terminal}
+  \begin{verbatim}
+$: cd repo/singularity
+$: mkdir work
+$: cd work
+\end{verbatim}
+  \end{block}
+    Steps: \url{../commands/commands.md}
   \end{frame}
 
-  \begin{frame}{Workflow: Receipe file}
+  \begin{frame}[fragile]{Workflow: Recipe file}
       \begin{itemize}
         \item Preferred way to crate images. Use interactive to get details
               right, test depencdencies, etc.  than fixeverything in a receipe
               file.
         \end{itemize}
-      Example: \url{../receipes/raxml.ubuntu.def}
+      Example: \url{../recipes/raxml.ubuntu.def}
+    \begin{block}{Run}
+    \footnotesize{}
+    recipes
+      \begin{verbatim}
+$: cd repo/singularity/work
+$: sudo singularity build ..recipes/raxml.ubuntu.def raxml.ubuntu.simg
+      \end{verbatim}
+    \end{block}
   \end{frame}
 
   \begin{frame}{Singularity on HPC}
@@ -134,7 +169,21 @@
       \item Host and container OS need same OpenMPI/MPI version
       \item Adjust image for binding directories
       \item Adjust GPU specific files, libraries
+      \item Very useful: \url{https://hpc.nih.gov/apps/singularity.html}
     \end{itemize}
-    Example PBS file: \url{../receipes/raxml-sing.pbs}
+    Example PBS file: \url{../recipes/raxml-sing.pbs}
+  \end{frame}
+
+  \begin{frame}{Possible error}
+    \begin{block}{FATAL: kernel too old}
+      The glibc version in the image is too new for the host kernel.
+      Update host kernel (not always possible) or use image with
+      older glibc.
+    \end{block}
+    \begin{block}{FATAL: Unable to create build: unable to get conveyorpacker: invalid build source}
+      Can occur with newer version (4537182). Bootstrap needs to br first line.
+      Remove all comments until Bootstrap:...\\
+      (\tty{../examples/\{raxml.ubuntu.def,raxml.ubuntu.git.def\}})
+    \end{block}
   \end{frame}
 \end{document}

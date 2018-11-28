@@ -1,14 +1,3 @@
-#-------------------------------------------------------------------------------
-#  \author Jan P Buchmann <jan.buchmann@sydney.edu.au>
-#  \description Singularity recipe for ABACBS 2018 Docker Workshop.
-#               The Ubuntu version has been chosen to accomodate
-#               OpenMPI on the USYD cluster.
-#-------------------------------------------------------------------------------
-# Header: Mandatory
-#   - Which OS to use as container base
-#   - Configuration of the base system
-#   E.g. which Linux distribution, versions and wich packages are part of the
-#        core install
 Bootstrap: docker # Mandatory: Which base to use, e.g. docker, shub, ..
 From: ubuntu:16.04
 
@@ -20,6 +9,8 @@ From: ubuntu:16.04
 #    Add a message describing the container's usage or purpose
 %help
 This is a simple demonstration of deploying RAxML in a Singularity container.
+This is for singularity version 4537182 which doesn't recognize comments
+in the header.
 Usage: singularity run [RAxML options], e.g. run -m GTRCAT -p 31415
 -s alignemnt.fa -n tree.raxml
 
