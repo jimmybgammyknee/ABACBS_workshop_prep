@@ -16,6 +16,15 @@
 
 ---
 
+## Who are we?
+⁠
+
+- __Jimmy Breen__ == "Docker/Singularity User"
+
+- __Jan Buchmann__ == "Docker/Singularity Developer"
+
+---
+
 ## What is Docker?
 
 ---
