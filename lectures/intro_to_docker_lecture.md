@@ -1,8 +1,8 @@
 
 
-## Introduction
+# Introduction
 
-## Who are we?
+# Who are we?
 
 - Jan Buchmann
     - Postdoc, University of Sydney
@@ -12,16 +12,16 @@
     - Senior Lecturer, University of Adelaide
     - Research: Reproductive Biology & Human Development
 
-## What is Docker?
+# What is Docker?
 
-## Containerisation: A brief history...
+# Containerisation: A brief history...
 
 - Developed with help from Linux kernel developers.
 - Developed a 'process containers' (renamed 'control groups') to control everything from single processes to whole-system virtualisation
 
     cgroups (abbreviated from control groups) is a Linux kernel feature that limits, accounts for, and isolates the resource usage (CPU, memory, disk I/O, network, etc.) of a collection of processes.
 
-## Containerisation: A brief history...
+# Containerisation: A brief history...
 
 - Cgroups (further developed by Google engineers) provided:
     - Resource limitation and prioritisation: Some groups should not exceed a certain allocation of RAM, CPU etc
@@ -29,25 +29,25 @@
         - Full control over how and when it ran
 - Docker relies (or should I say _has relied_) on Linux Containers (`LXC`) as an operating-system-level virtualization environment for running multiple isolated Linux systems (containers) on a single Linux control host.
 
-## Containers vs Virtual Machines
+# Containers vs Virtual Machines
 
 <img src="https://www.molecularecologist.com/wp-content/uploads/2016/05/docker_VMvsDocker.png" style="width:80vh">
 
-## Containers vs Virtual Machines
+# Containers vs Virtual Machines
 
 - Runs as a filesystem ontop of the system kernel
 - Essentially means that you do not have to boot up an operating system (like a virtual machine)
     - Therefore EXTREMELY light-weight
     - Negligible resource requirements for a docker container (JAN REFERENCE)
 
-## Why Docker?
+# Why Docker?
 
 - System agnostic
     - Enable a Run the same program on MacOSX, Linux, Windows
 - Deploy your program or pipeline the way you want to
 - Deployment is very quick
 
-## Why Docker?
+# Why Docker?
 
 ```“it works on my machine”```
 
@@ -56,7 +56,7 @@
         - Specific library dependencies are taken care of
     - Python 2 or python 3?
 
-## Disadvantages: Security
+# Disadvantages: Security
 
 - Only UIDs (user ids) and GIDs (group ids) matter. For example names and passwords of users and groups do not need to match or even exist in both host and container
 - By default the command of a container is run as root
@@ -64,7 +64,7 @@
 
 Taken from:[Niels Søholm - "Docker volumes and file system permissions"](https://medium.com/@nielssj/docker-volumes-and-file-system-permissions-772c1aee23ca)
 
-## Disadvantages: Security
+# Disadvantages: Security
 
 - `docker` is rarely allowed on a HPC, because as a regular user you do not have root access
 - Should be used locally and with caution
