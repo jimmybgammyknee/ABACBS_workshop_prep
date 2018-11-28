@@ -1,54 +1,80 @@
-# ABACBS 2018 Container Workshop
 
-This workshop is intended to introduce you to the two containerization commonly 
-used in bioinformatics, Docker and Singularity.
+# ABACBS Workshop: Docker Containers and Singularity Images
 
-## Requirements:
-- Laptop with administrative privileges
-- Installed [Docker](https://store.docker.com/search?type=edition&offering=community) and [Singularity](https://www.sylabs.io/singularity/get-singularity/)
-- Experience with the command-line of your OS (examples are shown in Linux)
-- Familiarity with git and ssh
-- If possible, a [Nectar](https://dashboard.rc.nectar.org.au/) login
+Date: November 29, 9am-12:30pm
+University of Melbourne
 
-# Timetable
+Run by:
+- Jan Buchmann (jan.buchmann@sydney.edu.au): University of Sydney
+- Jimmy Breen (jimmy.breen@adelaide.edu.au): South Australian Health and Medical Research Institute (SAHMRI) &
+University of Adelaide
 
-Honeetly, times may vary. Consider this an outline.
+## Quick setup
 
-Block | Time        | Topic          | Who
------ |-------------|----------------|---------------
-0     |09:00-09:30  | Setup          | James and Jan
-1     |09:30-10:00  | Docker I       | James
-2     |10:00-10:30  | Docker II      | James
-Break |10:30-11:00  |                |
-3     |11:00-11:15  | Singularity I  | Jan
-4     |11:15-11:30  | Singularity II | Jan
-5     |11:30-12:30  | Roll your own  | James and Jan
+        # Install build stuff
+        sudo apt-get update && \
+        sudo apt-get install git python dh-autoreconf \
+            build-essential libarchive-dev
+
+        # Install Docker
+        wget -qO- https://get.docker.com/ | sh
+        sudo usermod -aG docker ubuntu
+        newgrp docker
+
+        # Install singularity (for later)
+        # Install
+        VER=2.5.2
+        wget https://github.com/singularityware/singularity/releases/download/$VER/singularity-$VER.tar.gz
+        tar xvf singularity-$VER.tar.gz
+        cd singularity-$VER
+        ./configure --prefix=/usr/local --sysconfdir=/etc
+        make
+        sudo make install
 
 
-## Topics:
+## Outline
+Docker containers allow you to test and distribute simple and complex pipelines. You can write pipelines with different dependencies without the need to install them on your machine. Users can then pull your pipelines or tools and start using them without having to worry about dependencies or adventurous installation instructions. If your tool or pipeline can run on a HPC cluster, you can also deploy them as Singularity images, a more secure variant of docker containers. The workshop will introduce you to Docker Containers and Singularity Images. You will learn how to create, run, and distribute them using typical biological tasks as examples. Participants are invited to bring their own pipelines they wish to "Dockerize" in the last part of the workshop.
 
-### Setup:
-- Download workshop repository
-  - Nectar VM setup
-  - Installation of Docker and Singularity on Nectar
+## Run down
 
-### Docker I
+9am (30mins): Setup
+- Configuring Nectar Virtual Machine for workshop
+  - Setting Security Groups
 
-- Introduction to Docker
-  - Technicalities
-  - Advantages and disadvantages
+9:30am: Introduction to Docker
+- Short history of containerisation
+- Technicalities
+- Advantages and disadvantages
+    - Reproducible pipelines
+    - Static environments
+    - Easy distribution within the cloud
 
-### Docker II
+---
+**Note:** If you have a pipeline that you would like to containerise, let us know in the break because at 12pm we will break into two groups based on pipeline category
+- For example: One group could be running pipeline for variant calling (qc, mapping, duplicate removal, variant calls), and one group could be running RNA transcript quantification (trimming, `kallisto/salmon` or `STAR` and `featureCounts` for quantification)
+---
 
-  - Using docker for pipeline management
-  - Define a simplified pipeline
+10am: Workshop 1: Using docker for pipeline management
+- Using Dockerhub to run local docker images
+- Running a pipeline using multiple docker images
+- Running `RStudio` in docker over the web
 
-### Singularity I
-  - Introduction to Singularity
-  - Singularity vs. Docker
+10:30am - Break
 
-### Singularity II
-- Creating RAxML Singualrity image and corresponding PBS to run on an HPC
+11am: Introduction to Singularity and dockers on HPC
+- Singularity vs docker
+- Converting docker containers
+- Working with queuing systems (PBS, Slurm)
 
-### Roll your own
-- Turn your pipeline into a container or image
+11:15am: Workshop 2: Creating a docker/singularity pipeline from scratch
+- Building docker and singularity containers
+- Run simple BLAST pipeline (`efetch`, `makeblastdb`, `blastn`) to search 10 virus genomes
+
+12:00pm: "Bring your own pipeline"
+
+12:30pm: Workshop end
+
+### Basic Containerisation resources
+- Dockerhub (https://hub.docker.com/)
+- Singularity container registry (https://singularity-hub.org/)
+
