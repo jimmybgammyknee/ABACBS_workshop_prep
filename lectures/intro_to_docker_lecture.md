@@ -5,10 +5,11 @@
 
 ## Who are we?
 
-- Jan Buchmann
+- __Jan Buchmann__
     - Postdoc, University of Sydney
     - Research: Virus evolution
-- Jimmy Breen
+
+- __Jimmy Breen__
     - Bioinformatics Core Team Leader, SAHMRI
     - Senior Lecturer, University of Adelaide
     - Research: Reproductive Biology & Human Development
