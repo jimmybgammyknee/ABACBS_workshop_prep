@@ -77,7 +77,7 @@ Now we can use these images with some files that we've included. You will need t
     # Fetch the data that we'll need to run
     # - we've prepared this beforehand to reduce
 
-    genome=${HOME}/TAIR_chr_all.fas
+    genome=${HOME}/TAIR10_chr_all.fas
     sample=${HOME}/SRR7726416.fastq.gz
 
     ${bwa} index -p Athaliana ${genome}
