@@ -1,0 +1,65 @@
+#-------------------------------------------------------------------------------
+#  \author Jan P Buchmann <jan.buchmann@sydney.edu.au>
+#  \description Singularity recipe for ABACBS 2018 Docker Workshop
+#-------------------------------------------------------------------------------
+
+# Header: Mandatory
+#   - Which OS to use as containr base
+#   - Configuration of the base system
+#   E.g. which Linux distribution, versions and wich packages are part of the
+#        core install
+Bootstrap: shub # Mandatory: Which base to use, e.g. docker, shub, ..
+From: singularityhub/ubuntu
+
+# Sections : Optional
+# defined by '%' and followed by its name. Use to control the build process and
+# container setup
+
+##  %help section
+#    Add a message describing the container's usage or purpose
+%help
+This is a simple demonrations of deploying RAxML in a Singularity container
+Add usage later
+
+##  %setup section
+#    Commands executed on the host system after the installation of the base OS,
+#    but before %post. Runs as root user.
+#    If using Singularity < 2.3, this is the point to move files into the
+#    container required by %post. For Singularity >= 2.3, use %files section to
+#    copy files reuiqred by %post
+
+##  %files section
+#    Copy files from host to container before post
+#%files
+
+
+##  %labels section
+#    Add Metadata to the container in the form of LABELNAME LABELVALUE
+%labels
+  Maintainer jpb
+  Contact jan.buchmann@sydney.edu.au
+  Version 0.1.0
+
+##  %enviroment section
+#     Enviroment variables are sourced during run time, not build time.
+export PATH=/bin:/usr/bin:/usr/local/bin:/usr/local/cuda/bin:
+
+## % post section
+#   All commnads are run during build time in the containre after installing the
+#   base OS.
+%post
+  apt-get -q update
+  apt-get -y  --no-install-recommends install git openssl ca-certificates  \
+  python libarchive-dev  openssh-server build-essential openmpi-bin openmpi-common  libopenmpi-dev mpi-default-dev squashfs-tools wget tar
+  cd /tmp
+  wget https://github.com/singularityware/singularity/releases/download/2.5.2/singularity-2.5.2.tar.gz 
+  tar xvf singularity-2.5.2.tar.gz
+  cd singularity-2.5.2
+  ./configure --prefix=/usr/local
+  make -j3
+  make install
+
+## %runscript section
+%runscript
+  exec singularity  "$@"
+

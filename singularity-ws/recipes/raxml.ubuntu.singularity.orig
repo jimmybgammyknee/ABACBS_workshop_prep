@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #-------------------------------------------------------------------------------
 #  \author Jan P Buchmann <jan.buchmann@sydney.edu.au>
 #  \description Singularity recipe for ABACBS 2018 Docker Workshop
@@ -10,6 +11,10 @@
 #        core install
 Bootstrap: shub # Mandatory: Which base to use, e.g. docker, shub, ..
 From: singularityhub/ubuntu
+=======
+BootStrap: docker   # Mandatory: Which base to use, e.g. docker, shub, ..
+From: ubuntu:latest
+>>>>>>> 563d91fbe596dbec8b55e4be181bc2c2a85c7cb2
 
 # Sections : Optional
 # defined by '%' and followed by its name. Use to control the build process and

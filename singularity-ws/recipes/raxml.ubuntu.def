@@ -31,7 +31,7 @@ Add usage later
 #  sed -i \
 #      -e 's%http://archive.ubuntu.com/ubuntu%mirror://mirrors.ubuntu.com/mirrors.txt%' \
 #      -e 's/^deb-src/#deb-src/' /etc/apt/sources.list
-#  #mkdir -p ${SINGULARITY_ROOTFS}/tmp/build/cont_build
+  #mkdir -p ${SINGULARITY_ROOTFS}/tmp/build/cont_build
 
 ##  %files section
 #    Copy files from host to container before post
@@ -61,31 +61,16 @@ export PATH=/bin:/usr/bin:/usr/local/bin:/usr/local/cuda/bin:
 #   sure that your system has MPI installed.
 %post
   apt-get -q update
-<<<<<<< HEAD
-  apt-get -y  --no-install-recommends install git             \
-                                              openssl         \
-                                              openmpi-bin     \
-                                              openmpi-common  \
-                                              libopenmpi-dev  \
-                                              ca-certificates \
-                                              openssh-server  \
-                                              openssh-client  \
-                                              build-essential \
-                                              mpi-default-dev
-=======
   apt-get -y  --no-install-recommends install git openssl ca-certificates  \
    openssh-server build-essential openmpi-bin openmpi-common  libopenmpi-dev mpi-default-dev
   
->>>>>>> jpb_implementation
   apt-get clean && apt-get autoremove
   rm -rf /var/lib/apt/lists/*
 
   ### destination for HPC bind mounts
   mkdir -p /project /scratch
   touch /usr/bin/nvidia-smi
-
-  mkdir -p /tmp/cont_build
-  cd /tmp/cont_build
+  cd /tmp/
   if [ -d standard-RAxML ]; then
     cd standard-RAxML
     git pull
@@ -93,19 +78,10 @@ export PATH=/bin:/usr/bin:/usr/local/bin:/usr/local/cuda/bin:
     git clone https://github.com/stamatak/standard-RAxML.git
     cd standard-RAxML
   fi
-<<<<<<< HEAD
-<<<<<<< HEAD
-  make -j1 -f Makefile.AVX.HYBRID.gcc
-=======
   make -j2 -f Makefile.AVX.HYBRID.gcc
->>>>>>> jpb_implementation
-=======
-  make -j3 -f Makefile.AVX.HYBRID.gcc
->>>>>>> 563d91fbe596dbec8b55e4be181bc2c2a85c7cb2
   rm *.o
-  chmod +x /tmp/cont_build/standard-RAxML/raxmlHPC-HYBRID-AVX
-  ln -sf /tmp/cont_build/standard-RAxML/raxmlHPC-HYBRID-AVX /usr/local/bin
-
+  mv raxmlHPC-HYBRID-AVX /usr/local/bin
+  chmod +x /usr/local/bin/raxmlHPC-HYBRID-AVX
 
 ## %runscript section
 #   %runscript is not executed during build,but called upon running the
@@ -115,11 +91,7 @@ export PATH=/bin:/usr/bin:/usr/local/bin:/usr/local/cuda/bin:
   exec raxmlHPC-HYBRID-AVX  "$@"
 
 %test
-<<<<<<< HEAD
-  raxmlHPC-HYBRID-AVX -v
-=======
  # raxmlHPC-HYBRID-AVX -v
->>>>>>> jpb_implementation
 
 ## %startscript section
 #   Define what to do if started as an instance
