@@ -63,19 +63,22 @@ So we should now have two docker images running on the Nectar VM:
     # Check the status of all docker containers on the VM
     docker images
 
-Now we can use these images with some files that we've included in this workshops repository. The pipeline will firstly index the reference genome
+Now we can use these images with some files that we've included. You will need to download the link using `wget` (we'll do that in the script). The pipeline will firstly index the reference genome, then 
 
     #!/bin/bash
 
     bwa="docker run -v `pwd`:/tmp -w /tmp lh3lh3/bwa"
-    picard=
+    picard="docker run --rm broadinstitute/picard"
     samtools="docker run -it comics/samtools samtools"
+    
+    wget -c "https://universityofadelaide.box.com/shared/static/g5dl4tbkrrpphr8t9ssmh09qxxr4g7ft.gz" -O "SRR7726416.fastq.gz"
+    wget -c "https://universityofadelaide.box.com/shared/static/igqgwaqqi32mxo3ox7n6kz84jfz8cxwp.fas" -O "TAIR10_chr_all.fas"
 
     # Fetch the data that we'll need to run
     # - we've prepared this beforehand to reduce
 
-    genome=${HOME}/data/TAIR_chr_all.fas
-    sample=${HOME}/data/SRR7726416.fastq.gz
+    genome=${HOME}/TAIR_chr_all.fas
+    sample=${HOME}/SRR7726416.fastq.gz
 
     ${bwa} index -p Athaliana ${genome}
     zcat ${sample} | ${bwa} mem Athaliana /dev/stdin | \
@@ -84,7 +87,8 @@ Now we can use these images with some files that we've included in this workshop
 
     ${picard} MarkDuplicates I=SRR7726416_Athal.sorted.bam \
         O=SRR7726416_Athal.sorted.markdup.bam \
-
+        REMOVE_DUPLICATES=false \
+        M=SRR7726416_Athal.metrics.txt
 
 ---
 
