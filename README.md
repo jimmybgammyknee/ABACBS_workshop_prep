@@ -21,7 +21,7 @@ University of Adelaide
         sudo usermod -aG docker ubuntu
         newgrp docker
 
-      
+
         ### Install singularity (for later)
 
           #### Install Singularity 2.2.5
@@ -46,12 +46,8 @@ Docker containers allow you to test and distribute simple and complex pipelines.
   - Setting Security Groups
 
 9:30am: Introduction to Docker
-- Short history of containerisation
-- Technicalities
-- Advantages and disadvantages
-    - Reproducible pipelines
-    - Static environments
-    - Easy distribution within the cloud
+
+[https://gitpitch.com/jimmybgammyknee/ABACBS_workshop_prep/master?grs=github](https://gitpitch.com/jimmybgammyknee/ABACBS_workshop_prep/master?grs=github#/3)
 
 ---
 **Note:** If you have a pipeline that you would like to containerise, let us know in the break because at 12pm we will break into two groups based on pipeline category
@@ -81,4 +77,3 @@ Docker containers allow you to test and distribute simple and complex pipelines.
 ### Basic Containerisation resources
 - Dockerhub (https://hub.docker.com/)
 - Singularity container registry (https://singularity-hub.org/)
-
