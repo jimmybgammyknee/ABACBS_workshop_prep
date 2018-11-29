@@ -11,6 +11,9 @@ University of Adelaide
 
 ## Quick setup
 
+**NOTE REGARDING NECTAR: To run the first docker example (bwa/samtools etc) you will need a reasonably large VM**
+
+
         ### Install build stuff
         sudo apt-get update && \
         sudo apt-get install git python dh-autoreconf \
@@ -24,7 +27,7 @@ University of Adelaide
 
         ### Install singularity (for later)
 
-          #### Install Singularity 2.2.5
+          #### Install Singularity 2.5.2
           VER=2.5.2
           wget https://github.com/singularityware/singularity/releases/download/$VER/singularity-$VER.tar.gz
           tar xvf singularity-$VER.tar.gz
