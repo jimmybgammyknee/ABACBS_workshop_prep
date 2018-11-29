@@ -11,8 +11,13 @@ University of Adelaide
 
 ## Quick setup
 
-**NOTE REGARDING NECTAR: To run the first docker example (bwa/samtools etc) you will need a reasonably large VM**
+**NOTE REGARDING NECTAR
+To run the first docker example (bwa/samtools etc) 
+you will need a reasonably large VM**
 
+        ## Move to a larger area of the file system
+        sudo chown -R ubuntu:ubuntu /mnt
+        cd /mnt
 
         ### Install build stuff
         sudo apt-get update && \
@@ -24,9 +29,7 @@ University of Adelaide
         sudo usermod -aG docker ubuntu
         newgrp docker
 
-
         ### Install singularity (for later)
-
           #### Install Singularity 2.5.2
           VER=2.5.2
           wget https://github.com/singularityware/singularity/releases/download/$VER/singularity-$VER.tar.gz
@@ -40,6 +43,7 @@ University of Adelaide
             Follow the steps described on (https://github.com/sylabs/singularity.git)
 
 ## Outline
+
 Docker containers allow you to test and distribute simple and complex pipelines. You can write pipelines with different dependencies without the need to install them on your machine. Users can then pull your pipelines or tools and start using them without having to worry about dependencies or adventurous installation instructions. If your tool or pipeline can run on a HPC cluster, you can also deploy them as Singularity images, a more secure variant of docker containers. The workshop will introduce you to Docker Containers and Singularity Images. You will learn how to create, run, and distribute them using typical biological tasks as examples. Participants are invited to bring their own pipelines they wish to "Dockerize" in the last part of the workshop.
 
 ## Run down
