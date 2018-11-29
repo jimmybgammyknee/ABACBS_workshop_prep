@@ -63,7 +63,12 @@ So we should now have two docker images running on the Nectar VM:
     # Check the status of all docker containers on the VM
     docker images
 
-Now we can use these images with some files that we've included. You will need to download the link using `wget` (we'll do that in the script). The pipeline will firstly index the reference genome, then 
+## Running the pipeline
+
+Now we can use these images with some files that we've included. You will need to download the link using `wget` (we'll do that in the script). The pipeline will firstly index the reference genome, then map, sort and mark duplicates
+
+Create the pipeline by editing the following script in vim/nano/gedit etc.
+
 
     #!/bin/bash
 
@@ -78,8 +83,7 @@ Now we can use these images with some files that we've included. You will need t
     # - we've prepared this beforehand to reduce
 
     ${bwa} index -p Athaliana TAIR10_chr_all.fas
-    zcat SRR7726416.fastq.gz | ${bwa} mem Athaliana /dev/stdin | \
-        ${samtools} view -bhS - > SRR7726416_Athal.bam
+    ${bwa} mem Athaliana SRR7726416.fastq.gz | ${samtools} view -bhS - > SRR7726416_Athal.bam
     ${samtools} sort -o SRR7726416_Athal.sorted.bam SRR7726416_Athal.bam
 
     ${picard} MarkDuplicates I=SRR7726416_Athal.sorted.bam \
