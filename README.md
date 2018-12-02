@@ -6,14 +6,11 @@ University of Melbourne
 
 Run by:
 - Jan Buchmann (jan.buchmann@sydney.edu.au): University of Sydney
-- Jimmy Breen (jimmy.breen@adelaide.edu.au): South Australian Health and Medical Research Institute (SAHMRI) &
-University of Adelaide
+- Jimmy Breen (jimmy.breen@adelaide.edu.au): South Australian Health and Medical Research Institute (SAHMRI) & University of Adelaide
 
 ## Quick setup
 
-**NOTE REGARDING NECTAR
-To run the first docker example (bwa/samtools etc) 
-you will need a reasonably large VM**
+**NOTE**: _REGARDING NECTAR: To run the first docker example (bwa/samtools etc) you will need a reasonably large VM_
 
         ## Move to a larger area of the file system
         sudo chown -R ubuntu:ubuntu /mnt
@@ -22,25 +19,33 @@ you will need a reasonably large VM**
         ### Install build stuff
         sudo apt-get update && \
         sudo apt-get install git python dh-autoreconf \
-            build-essential libarchive-dev
+            build-essential libarchive-dev python-pip
+
+        # Pygame and numpy are needed for Singularity
+        pip install pygame
+        pip install numpy
 
         ### Install Docker
         wget -qO- https://get.docker.com/ | sh
         sudo usermod -aG docker ubuntu
         newgrp docker
 
-        ### Install singularity (for later)
-          #### Install Singularity 2.5.2
-          VER=2.5.2
-          wget https://github.com/singularityware/singularity/releases/download/$VER/singularity-$VER.tar.gz
-          tar xvf singularity-$VER.tar.gz
-          cd singularity-$VER
-          ./configure --prefix=/usr/local --sysconfdir=/etc
-          make
-          sudo make install
+        #### Install Singularity 2.5.2
+        VER=2.5.2
+        wget https://github.com/singularityware/singularity/releases/download/$VER/singularity-$VER.tar.gz
+        tar xvf singularity-$VER.tar.gz
+        cd singularity-$VER
+        ./configure --prefix=/usr/local --sysconfdir=/etc
+        make
+        sudo make install
 
-          #### Install Singularity  3
-            Follow the steps described on (https://github.com/sylabs/singularity.git)
+        #### Install Singularity  3
+        #### Follow the steps described on (https://github.com/sylabs/singularity.git)
+
+        # Install cromwell jar executables for workflows
+        mkdir -p /mnt/cromwell
+        wget -c https://github.com/broadinstitute/cromwell/releases/download/36/cromwell-36.jar -O "/mnt/cromwell/cromwell-36.jar"
+        wget -c https://github.com/broadinstitute/cromwell/releases/download/36/womtool-36.jar -O "/mnt/cromwell/womtool-36.jar"
 
 ## Outline
 
