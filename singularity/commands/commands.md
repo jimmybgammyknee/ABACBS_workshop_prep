@@ -20,4 +20,4 @@ Step  |  Host                                                                   
 13    | `singularity shell -B /usr/:/mnt/builds  /tmp/ubuntu/`                  | `ls /mnt/builds`
 14    | `sudo singularity build ubuntu.sif /tmp/ubuntu/`                        |
 15    | `sudo singularity shell ubuntu.sif`                                     |
-16    | `echo "echo Behind you, a three headed monkey " | singularity exec ubuntu.sif bash |singularity exec ubuntu.sif rev`
+16    | `echo "echo Behind you, a three headed monkey " \| singularity exec ubuntu.sif bash \|singularity exec ubuntu.sif rev`
