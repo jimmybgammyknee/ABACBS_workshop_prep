@@ -19,7 +19,7 @@ Run by:
         ### Install build stuff
         sudo apt-get update && \
         sudo apt-get install git python dh-autoreconf \
-            build-essential libarchive-dev python-pip
+            build-essential libarchive-dev python-pip vim
 
         # Pygame and numpy are needed for Singularity
         pip install pygame
